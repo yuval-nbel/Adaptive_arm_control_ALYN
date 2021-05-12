@@ -1,7 +1,7 @@
 from arm import Model, Simulation
 import numpy as np
 
-BASE_DIR = '/home/nbel/NBEL/alyn_project/Adaptive_arm_control/Adaptive_arm_control/'
+BASE_DIR = '/home/nbel/NBEL/alyn_project/Adaptive_arm_control_ALYN/'
   
 model_name  = 'NBEL'
 model = Model(BASE_DIR + 'arm_models/{}/{}.xml'.format(model_name, model_name))
@@ -12,8 +12,8 @@ default_quat = [3.082675779951924, -0.037349176615183055, -1.1118398002232517]
 
 target      = [np.array([ 0.20 , 0.10,-0.10,  0, 0, 0]), 
                np.array([ -0.10 , 0.10, -0.10 , 0, 0, 0]), 
-               np.array([ 0.20 , 0.10,-0.10 ,  0, 0.3, 0]), 
-               np.array([ -0.10 , 0.10, -0.10 ,  0, 0.3, 0])
+               np.array([ 0.20 , 0.10,-0.10 ,  0, 1, 0]), 
+               np.array([ -0.10 , 0.10, -0.10 ,  0, 1, 0])
 ]
 
 simulation_ext = Simulation(model, init_angles, external_force=0,

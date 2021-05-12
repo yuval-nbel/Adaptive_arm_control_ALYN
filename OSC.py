@@ -46,7 +46,7 @@ class OSC:
         # Particularly, shosing x,y,x among [x, y, z, alpha, beta, gamma] 
         J = self.simulation.get_Jacobian()
         control_dof = [True, True, True, False, False, False] # Position
-        control_dof = [True, True, True, True, False, False] # Rotation
+        control_dof = [True, True, True, True, True, True] # Rotation
         J = J[control_dof]
 
         # Getting the inertia matrix                           
