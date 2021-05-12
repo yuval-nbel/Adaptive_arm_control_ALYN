@@ -3,8 +3,6 @@ import numpy as np
 
 def euler_from_quaternion(quaternion):
 
- #   quaternion = [ 1.29868127e-06 ,-7.07110677e-01 ,-7.07102885e-01, -1.29867650e-06]   #########################################
- #   quaternion = [-0.01516427, -0.84918902 ,-0.52693677 , 0.03139567]
     _EPS = np.finfo(float).eps * 4.0
 
     def quaternion_matrix(quaternion):
@@ -25,7 +23,7 @@ def euler_from_quaternion(quaternion):
     def euler_from_matrix(matrix):
 
         _AXES2TUPLE = (2, 1, 0, 1) # in "rxyz" axis
-        _AXES2TUPLE = (0, 0, 0, 0) # in "sxyz" axis
+ #       _AXES2TUPLE = (0, 0, 0, 0) # in "sxyz" axis
         _NEXT_AXIS  = [1, 2, 0, 1] # axis sequences for Euler angles
 
         firstaxis, parity, repetition, frame = _AXES2TUPLE
@@ -62,7 +60,6 @@ def euler_from_quaternion(quaternion):
             ax, az = az, ax
         return ax, ay, az
 
- #   print(euler_from_matrix(quaternion_matrix(quaternion))) #########################################33#######
     return euler_from_matrix(quaternion_matrix(quaternion))
 
 
@@ -72,7 +69,7 @@ def euler_matrix(ai, aj, ak):
         axes : One of 24 axis sequences as string or encoded tuple
         """
         _AXES2TUPLE = (2, 1, 0, 1) # in "rxyz" axis
-        _AXES2TUPLE = (0, 0, 0, 0) # in "sxyz" axis
+    #    _AXES2TUPLE = (0, 0, 0, 0) # in "sxyz" axis
         _NEXT_AXIS  = [1, 2, 0, 1] # axis sequences for Euler angles
         
         firstaxis, parity, repetition, frame = _AXES2TUPLE
@@ -216,7 +213,7 @@ def quaternion_from_euler(ai, aj, ak, axes="sxyz"):
     axes : One of 24 axis sequences as string or encoded tuple
     """
     _AXES2TUPLE = (2, 1, 0, 1) # in "rxyz" axis
-    _AXES2TUPLE = (0, 0, 0, 0) # in "sxyz" axis
+ #   _AXES2TUPLE = (0, 0, 0, 0) # in "sxyz" axis
     _NEXT_AXIS  = [1, 2, 0, 1] # axis sequences for Euler angles
         
     firstaxis, parity, repetition, frame = _AXES2TUPLE

@@ -21,7 +21,7 @@ class OSC:
         
         self.simulation = simulation
         
-        _DEFAULTS =  {'Kv': 20, 'Kp': 200, 'Ko': 200, 'Ki': 0, 'vmax': [0.5, 0]}              
+        _DEFAULTS =  {'Kv': 20, 'Kp': 200, 'Ko': 200, 'Ki': 0, 'vmax': [0.5, 1.5]}              
         self.control_dict = _DEFAULTS          
         
         for param in kwarg:
