@@ -36,7 +36,7 @@ class OSC:
         self.control_dict['scale_abg'] = self.control_dict['sat_gain_abg'] = \
                         self.control_dict['vmax'][1] / self.control_dict['Ko'] * self.control_dict['Kv']
 
-        self.orientation_algorithm = 0
+        self.orientation_algorithm = 1
     
     def generate (self, q, dq, target):
                       
@@ -128,7 +128,7 @@ class OSC:
             # transform the orientation target into a quaternion
             q_d = unit_vector(
                 quaternion_from_euler(
-                    target_abg[0], target_abg[1], target_abg[2], axes="rxyz"
+                    target_abg[0], target_abg[1], target_abg[2], 
                 )
             )
             # get the quaternion for the end effector
@@ -149,7 +149,7 @@ class OSC:
 
             # get rotation matrix for the target orientation
             R_d = euler_matrix(
-                target_abg[0], target_abg[1], target_abg[2], axes="rxyz"
+                target_abg[0], target_abg[1], target_abg[2], 
             )[:3, :3]
             R_ed = np.dot(R_e.T, R_d)  # eq 24
             q_ed = unit_vector(
