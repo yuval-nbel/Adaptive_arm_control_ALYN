@@ -134,6 +134,10 @@ class OSC:
             # get the quaternion for the end effector
             q_e = self.simulation.get_ee_quaternion()
 
+            x = euler_from_quaternion(q_e)
+            print("e: ", x)
+            print("q: ", quaternion_from_euler(x))
+
             q_r = quaternion_multiply(
                 q_d, quaternion_conjugate(q_e)
             )

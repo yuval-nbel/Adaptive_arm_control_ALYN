@@ -219,7 +219,7 @@ class Simulation:
 
                 # Actuating the arm, calculate error and update viewer ---------------------------
                 self.send_forces(u)           
-                self.viewer.render() ####################################################################################333##
+                self.viewer.render() ####################################################################################333#################################
                 
                 # retrieve the position of the arm follow actuation
                 ee_position = self.get_ee_position()

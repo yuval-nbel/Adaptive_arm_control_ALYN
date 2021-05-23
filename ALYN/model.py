@@ -99,6 +99,10 @@ class MuJoCo_Model:
         
         return np.copy(self.simulation.data.get_body_xpos('EE'))
     
+    def get_ee_quaternion(self):
+        """ Retrieve the quaternion of the End Effector (EE) """
+        return np.copy(self.simulation.data.get_body_xquat('EE'))
+
     def get_Jacobian(self):
         """ Returns the Jacobian of the arm (from the perspective of the EE) """
 

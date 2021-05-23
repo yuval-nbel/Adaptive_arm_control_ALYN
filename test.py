@@ -10,10 +10,13 @@ init_angles = {0: -np.pi/2, 1:0, 2:np.pi/2, 3:0, 4:np.pi/2, 5:0}
 init_quat = [-np.pi, 0, -np.pi/2]
 default_quat = [3.082675779951924, -0.037349176615183055, -1.1118398002232517]
 
-target      = [np.array([ 0.20 , 0.10,-0.10,  0, 0, 0]), 
-               np.array([ -0.10 , 0.10, -0.10 , 0, 0, 0]), 
-               np.array([ 0.20 , 0.10,-0.10 ,  0, 1, 0]), 
-               np.array([ -0.10 , 0.10, -0.10 ,  0, 1, 0])
+target      = [
+#np.array([ 0, 0 ,0,  -np.pi, 0, -np.pi/2]),
+#np.array([ 0.1, 0.1 ,0.1,  -np.pi, 0, -np.pi/2]),
+    np.array([ 0.20 , 0.10,-0.10,  0, 0, 0]), 
+ #              np.array([ -0.10 , 0.10, -0.10 , 0, 0, 0]), 
+ #              np.array([ 0.20 , 0.10,-0.10 ,  0, 1, 0]), 
+ #              np.array([ -0.10 , 0.10, -0.10 ,  0, 1, 0])
 ]
 
 simulation_ext = Simulation(model, init_angles, external_force=0,

@@ -192,7 +192,7 @@ class viper300:
                          [T2], 
                          [T3]], dtype='float')
     
-    def calc_J_numeric(self, q):
+    def _calc_J_numeric(self, q):
         """ Calculate the Jacobian for q numerically
          
          Equation was derived symbolically and was then written here manually.
@@ -252,6 +252,108 @@ class viper300:
         return np.array([[J0,  J1,  J2,  J3,  J4],
                          [J5,  J6,  J7,  J8,  J9],
                          [J10, J11, J12, J13, J14]], dtype='float')
+
+
+    def calc_J_numeric(self, q):
+        """ Calculate the Jacobian for q numerically
+         
+         Equation was derived symbolically and was then written here manually.
+         Nuerical evaluation works faster then symbolically. 
+         """
+        
+        q0 = q[0]
+        q1 = q[1]
+        q2 = q[2]
+        q3 = q[3]
+        q4 = q[4]
+        
+        # position
+        J0 = (-0.208*np.sin(q0)*np.sin(q3)*np.sin(q4) + 0.3*np.sin(q1)*np.cos(q0) 
+              + 0.208*np.sin(q4)*np.sin(q1 + q2)*np.cos(q0)*np.cos(q3) 
+              - 0.06*np.cos(q0)*np.cos(q1) - 0.208*np.cos(q0)*np.cos(q4)*np.cos(q1 + q2) 
+              - 0.299*np.cos(q0)*np.cos(q1 + q2))
+
+        J1 = ((0.06*np.sin(q1) + 0.208*np.sin(q4)*np.cos(q3)*np.cos(q1 + q2) 
+               + 0.208*np.sin(q1 + q2)*np.cos(q4) + 0.299*np.sin(q1 + q2) + 0.3*np.cos(q1))*np.sin(q0))
+        
+        J2 = ((0.208*np.sin(q4)*np.cos(q3)*np.cos(q1 + q2) 
+               + 0.208*np.sin(q1 + q2)*np.cos(q4) + 0.299*np.sin(q1 + q2))*np.sin(q0))
+        
+        J3 = -0.208*(np.sin(q0)*np.sin(q3)*np.sin(q1 + q2) - np.cos(q0)*np.cos(q3))*np.sin(q4)
+        
+        J4 = (0.208*(np.sin(q0)*np.sin(q1 + q2)*np.cos(q3) 
+                     + np.sin(q3)*np.cos(q0))*np.cos(q4) + 0.208*np.sin(q0)*np.sin(q4)*np.cos(q1 + q2))
+        
+        J5 = (0.3*np.sin(q0)*np.sin(q1) + 0.208*np.sin(q0)*np.sin(q4)*np.sin(q1 + q2)*np.cos(q3) 
+              - 0.06*np.sin(q0)*np.cos(q1) - 0.208*np.sin(q0)*np.cos(q4)*np.cos(q1 + q2) 
+              - 0.299*np.sin(q0)*np.cos(q1 + q2) + 0.208*np.sin(q3)*np.sin(q4)*np.cos(q0))
+        
+        J6 = (-(0.06*np.sin(q1) + 0.208*np.sin(q4)*np.cos(q3)*np.cos(q1 + q2) 
+                + 0.208*np.sin(q1 + q2)*np.cos(q4) + 0.299*np.sin(q1 + q2) + 0.3*np.cos(q1))*np.cos(q0))
+        
+        J7 = (-(0.208*np.sin(q4)*np.cos(q3)*np.cos(q1 + q2) 
+                + 0.208*np.sin(q1 + q2)*np.cos(q4) + 0.299*np.sin(q1 + q2))*np.cos(q0))
+        
+        J8 = 0.208*(np.sin(q0)*np.cos(q3) + np.sin(q3)*np.sin(q1 + q2)*np.cos(q0))*np.sin(q4)
+        
+        J9 = (0.208*(np.sin(q0)*np.sin(q3) 
+                     - np.sin(q1 + q2)*np.cos(q0)*np.cos(q3))*np.cos(q4) 
+              - 0.208*np.sin(q4)*np.cos(q0)*np.cos(q1 + q2))
+        
+        J10 = 0
+        
+        J11 = (-0.3*np.sin(q1) - 0.208*np.sin(q4)*np.sin(q1 + q2)*np.cos(q3) 
+               + 0.06*np.cos(q1) + 0.208*np.cos(q4)*np.cos(q1 + q2) + 0.299*np.cos(q1 + q2))
+        
+        J12 = -0.208*np.sin(q4)*np.sin(q1 + q2)*np.cos(q3) + 0.208*np.cos(q4)*np.cos(q1 + q2) + 0.299*np.cos(q1 + q2)
+        
+        J13 = -0.208*np.sin(q3)*np.sin(q4)*np.cos(q1 + q2)
+        
+        J14 = -0.208*np.sin(q4)*np.sin(q1 + q2) + 0.208*np.cos(q3)*np.cos(q4)*np.cos(q1 + q2)
+
+        # oriantetion
+        J15=0
+        J16=1
+        J17=1
+        J18=0
+        J19=1
+        J20=0
+        J21=0
+        J22=1
+        J23=0
+        J24=0
+        J25=1
+        J26=0
+        J27=0
+        J28=0
+        J29=0
+
+        
+        return np.array([[J0,  J1,  J2,  J3,  J4],
+                         [J5,  J6,  J7,  J8,  J9],
+                         [J10, J11, J12, J13, J14],
+                         [J15,  J16,  J17,  J18,  J19],
+                         [J20,  J21,  J22,  J23,  J24],
+                         [J25, J26, J27, J28, J29]], dtype='float')
+        J19=1
+        J20=0
+        J21=0
+        J22=1
+        J23=0
+        J24=0
+        J25=1
+        J26=0
+        J27=0
+        J28=0
+        J29=0
+
+        
+        return np.array([[J0,  J1,  J2,  J3,  J4],
+                         [J5,  J6,  J7,  J8,  J9],
+                         [J10, J11, J12, J13, J14],
+                         [J15,  J16,  J17,  J18,  J19],
+                         [J20,  J21,  J22,  J23,  J24],
+                         [J25, J26, J27, J28, J29]], dtype='float')
     
 class widow200:
     """ Describe the WidowX 200 5DOF robotic arm by Trossen Robotic
