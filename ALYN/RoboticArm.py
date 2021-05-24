@@ -25,6 +25,7 @@ import numpy as np
 from dynamixel_sdk import *
 
 # Offset angles for the physical arm in relative to the IK mpdel
+  
 offset_relative_to_IK_Model = {1: 90, 2: 180, 3: 180, 4: 180, 
                                5: 180, 6: 0, 7: 180, 8: 0, 9: 0}
 
@@ -32,20 +33,22 @@ def robot_to_model_position(robot_position):
 
     return [     np.deg2rad(robot_position[1]-offset_relative_to_IK_Model[1]),
             -1 * np.deg2rad(robot_position[2]-offset_relative_to_IK_Model[2]),
-            -1 * np.deg2rad(robot_position[4]-offset_relative_to_IK_Model[4]),
+            -1 * np.deg2rad((360-robot_position[4])-offset_relative_to_IK_Model[4]),
                  np.deg2rad(robot_position[6]-offset_relative_to_IK_Model[6]),
             -1 * np.deg2rad(robot_position[7]-offset_relative_to_IK_Model[7])]
 
 def model_to_robot_position(model_position):
      
-    f = [ np.rad2deg(     model_position[0])+offset_relative_to_IK_Model[1],
-          np.rad2deg(-1 * model_position[1])+offset_relative_to_IK_Model[2],
-          np.rad2deg(-1 * model_position[2])+offset_relative_to_IK_Model[4],
-          np.rad2deg(     model_position[3])+offset_relative_to_IK_Model[6],
-          np.rad2deg(-1 * model_position[4])+offset_relative_to_IK_Model[7]]
-
+    f = [ (np.rad2deg(     model_position[0])+offset_relative_to_IK_Model[1])%360,
+          (np.rad2deg(-1 * model_position[1])+offset_relative_to_IK_Model[2])%360,
+          360-((np.rad2deg(-1 * model_position[2])+offset_relative_to_IK_Model[4])%360),
+          (np.rad2deg(     model_position[3])+offset_relative_to_IK_Model[6])%360,
+          (np.rad2deg(-1 * model_position[4])+offset_relative_to_IK_Model[7])%360]
+   
     return {1: int(f[0]), 2: int(f[1]), 3: int(f[1]), 4: int(f[2]),
             5: int(f[2]), 6: int(f[3]), 7: int(f[4]), 8: 180, 9: 180}
+    
+
 
 Robot = {'Real':{
             'CMD':
@@ -82,17 +85,19 @@ Robot = {'Real':{
              
              # Note that engines 2 and 5 were set to reverse mode to allow 
              # both to be configured similarly to their counterpart.
-             'Home'    : {1: 85, 2: 135, 3: 135, 4: 180, 5: 180, 6: 180, 7:135, 8:180, 9:180}}
+             'Home'    : {1: 85, 2: 135, 3: 135, 4: 180, 5: 180, 6: 180, 7:135, 8:180, 9:180},
+             }
         } 
 
 class RoboticArm:
     
     def __init__ (self, CMD_dict, COM_ID = 'COM5', PROTOCOL_VERSION = 2.0):
         
-        self.CMD           = CMD_dict['Real']['CMD']
-        self.priority      = CMD_dict['Real']['Priority']
-        self.home_position = CMD_dict['Real']['Home']
-        
+        self.CMD              = CMD_dict['Real']['CMD']
+        self.priority         = CMD_dict['Real']['Priority']
+        self.home_position    = CMD_dict['Real']['Home']
+
+
         self.initialize(COM_ID, PROTOCOL_VERSION)
         
     def initialize(self, COM_ID, PROTOCOL_VERSION):  
@@ -164,6 +169,13 @@ class RoboticArm:
         self.enable_torque()
         print("Setting home position")
         self.set_position_by_priority(self.home_position)
+
+    '''
+    def go_limit_back (self) :
+        self.enable_torque()
+        print("Setting home position")
+        self.set_position_by_priority(self.limit_back_position)
+    '''
     
     def reboot (self, IDs = 'all'):
         

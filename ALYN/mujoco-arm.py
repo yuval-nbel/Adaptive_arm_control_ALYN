@@ -19,7 +19,7 @@ position = robot_to_model_position(Robot['Real']['Home'])
 position = robot_to_model_position({1: 24, 2: 195, 3: 195, 4: 145, 5: 145, 6: 19, 7:193, 8:180, 9:180})
 
 
-position = robot_to_model_position({1: 104, 2: 143, 3: 143, 4: 193, 5: 193, 6: 188, 7: 118, 8: 180, 9: 180})
+position = robot_to_model_position({1: 85, 2: 133, 3: 133, 4: 151, 5: 151, 6: 180, 7: 115, 8: 180, 9: 180})
 
 '''
 updated_position = position + np.dot(np.linalg.pinv(ik_model.calc_J_numeric(position)), [0, 0.01, 0])
@@ -40,6 +40,8 @@ c = model.get_ee_position()                                 # Current position
 q = model.get_ee_quaternion() 
 e = euler_from_quaternion(q)
 
+print("updated_position: ", updated_position)
+print("c: ", c)
 print("e: ", e)
 print("q: ", q)
 model.visualize()
