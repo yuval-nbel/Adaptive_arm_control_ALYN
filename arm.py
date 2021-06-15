@@ -224,6 +224,10 @@ class Simulation:
                 # retrieve the position of the arm follow actuation
                 ee_position = self.get_ee_position()
                 
+                # retrieve the orientation of the arm follow actuation
+                q = self.get_ee_quaternion() 
+                e = euler_from_quaternion(q)
+
                 # Calculate error as the distance between the target and the position of the EE
                 error = np.sqrt(np.sum((np.array(target[:3]) - np.array(ee_position))** 2))
                 
@@ -233,7 +237,12 @@ class Simulation:
                 self.monitor_dict[exp]['ee'].    append(np.copy(ee_position)) # Position of the EE
                 self.monitor_dict[exp]['q'].     append(np.copy(position))    # Joints' angles
                 self.monitor_dict[exp]['dq'].    append(np.copy(velocity))    # Joints' velocities
-       
+                
+                print("c: ", ee_position)
+                print("e: ", e)
+                print("q: ", q)
+                print("#############")
+        print("################################")
                     
         # End of simulation ----------------------------------------------------------------------
         time.sleep(1.5)

@@ -86,6 +86,7 @@ Robot = {'Real':{
              # Note that engines 2 and 5 were set to reverse mode to allow 
              # both to be configured similarly to their counterpart.
              'Home'    : {1: 85, 2: 135, 3: 135, 4: 180, 5: 180, 6: 180, 7:135, 8:180, 9:180},
+             'Drinking'    : {1: 85, 2: 170, 3: 170, 4: 170, 5: 170, 6: 90, 7:90, 8:0, 9:255}
              }
         } 
 
@@ -96,7 +97,7 @@ class RoboticArm:
         self.CMD              = CMD_dict['Real']['CMD']
         self.priority         = CMD_dict['Real']['Priority']
         self.home_position    = CMD_dict['Real']['Home']
-
+        self.drinking_position    = CMD_dict['Real']['Drinking']
 
         self.initialize(COM_ID, PROTOCOL_VERSION)
         
