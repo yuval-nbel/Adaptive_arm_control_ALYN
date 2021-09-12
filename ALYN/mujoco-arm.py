@@ -1,9 +1,9 @@
 #from tmp.arm import Model, Simulation
-import numpy as np
+#import numpy as np
 from IK import *
 from RoboticArm import *
 from model import MuJoCo_Model as Model
-from simulation import Simulation, Controller
+#from simulation import Simulation, Controller
 from utilities import *
 
 BASE_DIR = '/home/nbel/NBEL/alyn_project/Adaptive_arm_control_ALYN/'
@@ -17,6 +17,13 @@ ik_model = viper300()
 position = Robot['Real']['Home']
 position = robot_to_model_position(Robot['Real']['Home'])
 position = robot_to_model_position(Robot['Real']['Drinking'])
+
+position = [-0.017453292519943295, 0.7853981633974483, -0.0, 3.141592653589793, 0.7853981633974483] # Home
+position = [-0.017453292519943295, 0.17453292519943295, -0.17453292519943295, -1.5707963267948966, 1.5707963267948966] # Drinking
+position = robot_to_model_position({1: 180, 2: 225, 3: 135, 4: 180, 5: 182, 6: 180, 7: 135, 8: 180, 9: 240})
+position = robot_to_model_position({1: 180, 2: 190, 3: 170, 4: 170, 5: 192, 6: 90, 7: 90, 8: 90, 9: 240})
+
+
 #position = [0,0,0,0,0]
 #position = robot_to_model_position({1: 24, 2: 195, 3: 195, 4: 145, 5: 145, 6: 19, 7:193, 8:180, 9:180})
 
@@ -30,7 +37,7 @@ for i in range(10):
 '''
 updated_position = position
 ## EE position in the physical model's configuration space
-p = [1, -1, -1, 1, 1] # z x x y x: accounting for direction of rotation
+p = [1, -1, -1, -1, -1] # z x x y x: accounting for direction of rotation
 q_dic = {i: p[i]*v for i, v in enumerate (updated_position)}
 #print(q_dic)
 
